@@ -37,20 +37,11 @@ export const generateExternalLink = (
 
   // eslint-disable-next-line default-case
   switch (type) {
-    case ExternalLinkType.staticaly:
-      return staticalyLink
-
-    case ExternalLinkType.cloudflare:
-      return cloudflareLink
-
-    case ExternalLinkType.jsdelivr:
-      return jsdelivrLink
-
-    case ExternalLinkType.github:
-      return githubLink
+    case ExternalLinkType.jihulab:
+      return jihulabLink
 
     default:
-      return githubLink
+      return jihulabLink
   }
 }
 
@@ -74,43 +65,23 @@ export const copyExternalLink = (img: UploadedImageModel, type: ExternalLinkType
   const { name, is_transform_md: isMD } = img
 
   switch (type) {
-    case ExternalLinkType.jsdelivr:
-      if (isMD) {
-        externalLink = formatMarkdown(name, img.jsdelivr_cdn_url)
-        successInfo = 'Markdown 格式的 jsDelivr CDN'
-      } else {
-        externalLink = img.jsdelivr_cdn_url
-        successInfo = 'jsDelivr CDN'
-      }
-      break
-
-    case ExternalLinkType.staticaly:
-      if (isMD) {
-        externalLink = formatMarkdown(name, img.staticaly_cdn_url)
-        successInfo = 'Markdown 格式的 Staticaly CDN'
-      } else {
-        externalLink = img.staticaly_cdn_url
-        successInfo = 'Staticaly CDN'
-      }
-      break
-
     case ExternalLinkType.cloudflare:
       if (isMD) {
         externalLink = formatMarkdown(name, img.cloudflare_cdn_url)
-        successInfo = 'Markdown 格式的 Cloudflare CDN'
+        successInfo = 'Markdown 格式的 Jihulab CDN'
       } else {
         externalLink = img.cloudflare_cdn_url
-        successInfo = 'Cloudflare CDN'
+        successInfo = 'Jihulab CDN'
       }
       break
 
     default:
       if (isMD) {
         externalLink = formatMarkdown(name, img.github_url)
-        successInfo = 'Markdown 格式的 GitHub'
+        successInfo = 'Markdown 格式的 Jihulab'
       } else {
         externalLink = img.github_url
-        successInfo = 'GitHub'
+        successInfo = 'Jihulab'
       }
   }
 
@@ -138,28 +109,16 @@ export const batchCopyExternalLink = (
     imgCardList.forEach((item: UploadedImageModel, index) => {
       const isMD = item.is_transform_md
       switch (type) {
-        case ExternalLinkType.jsdelivr:
-          externalLink = isMD
-            ? formatMarkdown(item.name, item.jsdelivr_cdn_url)
-            : item.jsdelivr_cdn_url
-          break
-
-        case ExternalLinkType.staticaly:
-          externalLink = isMD
-            ? formatMarkdown(item.name, item.staticaly_cdn_url)
-            : item.staticaly_cdn_url
-          break
-
-        case ExternalLinkType.cloudflare:
+        case ExternalLinkType.jihulab:
           externalLink = isMD
             ? formatMarkdown(item.name, item.cloudflare_cdn_url)
-            : item.cloudflare_cdn_url
+            : item.jihulab_url
           break
 
         default:
           externalLink = isMD
             ? formatMarkdown(item.name, item.github_url)
-            : item.github_url
+            : item.jihulab_url
       }
 
       if (index < imgCardList.length - 1) {
