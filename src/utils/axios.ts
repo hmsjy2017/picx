@@ -1,7 +1,7 @@
 import Axios from 'axios'
 import { PICX_CONFIG } from '@/common/model/storage.model'
 
-const baseURL = 'https://api.github.com'
+const baseURL = 'https://jihulab.com/api/v4'
 
 const axios = Axios.create({
   baseURL,
